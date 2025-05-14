@@ -1,4 +1,5 @@
 import 'package:beauty_bag/cart/view/components/address_card.dart';
+import 'package:beauty_bag/cart/view/components/payment_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../init_screen.dart';
@@ -56,6 +57,9 @@ class _CartScreenState extends State<CartScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Payment', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.brown)),
                 ),
+                SizedBox(height: 5,),
+                PaymentCard(),
+                SizedBox(height: 5,),
               ],
             ),
           ),
