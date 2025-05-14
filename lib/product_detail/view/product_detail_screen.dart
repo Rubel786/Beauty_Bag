@@ -1,17 +1,17 @@
-import 'package:beauty_bag/product_detail/service/ProductDetailService.dart';
-import 'package:beauty_bag/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../init_screen.dart';
+import '../../utils/constants.dart';
+import '../../utils/expandable_text.dart';
 import '../model/product_detail_model.dart';
+import '../service/ProductDetailService.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   static String routeName = '/product_detail';
   final int productId;
 
-  const ProductDetailScreen({required this.productId, Key? key})
-    : super(key: key);
+  const ProductDetailScreen({required this.productId, Key? key}) : super(key: key);
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -19,15 +19,12 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   late Future<ProductDetailModel> productDetail;
-  final ProductDetailService _service =
-      ProductDetailService(); // Create instance
+  final ProductDetailService _service = ProductDetailService();
 
   @override
   void initState() {
     super.initState();
-    productDetail = _service.fetchProductDetail(
-      widget.productId,
-    ); // Use service
+    productDetail = _service.fetchProductDetail(widget.productId);
   }
 
   @override
@@ -41,6 +38,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
+          elevation: 0,
           actions: [
             Container(
               margin: const EdgeInsets.only(right: 20),
@@ -50,10 +48,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Row(
-                children: [
+                children: const [
                   Icon(CupertinoIcons.heart_fill),
                   SizedBox(width: 8),
-                  Icon(Icons.share),
+                  Icon(Icons.share, color: Colors.black),
                 ],
               ),
             ),
@@ -63,11 +61,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           future: productDetail,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData) {
-              return Center(child: Text('No Data Found'));
+              return const Center(child: Text('No Data Found'));
             } else {
               final product = snapshot.data!;
               return SingleChildScrollView(
@@ -82,42 +80,42 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: kPrimaryBodyColor,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(40),
                           topLeft: Radius.circular(40),
                         ),
                       ),
-                      padding: EdgeInsets.fromLTRB(20, 20, 20, 150),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 150),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 80,
-                                width: 250,
-                                // Adjust this height as needed to fit two lines comfortably
+                              Expanded(
                                 child: Text(
-                                  maxLines: 2,
                                   product.title,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
                                     color: Colors.brown,
-                                    fontSize: 30,
+                                    fontSize: 28,
                                     fontFamily: "Mulish",
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
+                              const SizedBox(width: 12),
                               Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
                                     "\$${product.price}",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
                                       fontFamily: "Mulish",
@@ -125,11 +123,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       decoration: TextDecoration.lineThrough,
                                     ),
                                   ),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   Text(
                                     "\$${product.discountPercentage}",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.brown,
                                       fontSize: 22,
                                       fontFamily: "Mulish",
@@ -140,20 +137,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               RatingBarIndicator(
                                 rating: product.rating,
-                                itemBuilder:
-                                    (context, _) =>
-                                        Icon(Icons.star, color: Colors.amber),
+                                itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
                                 itemCount: 5,
                                 itemSize: 20.0,
                                 direction: Axis.horizontal,
                               ),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               Text(
                                 "${product.rating}",
                                 style: const TextStyle(
@@ -165,74 +160,63 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Brand",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontFamily: "Mulish",
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                "${product.brand}",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: "Mulish",
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Category",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontFamily: "Mulish",
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                "${product.category}",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: "Mulish",
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
-                            "Description",
-                            style: TextStyle(
+                            "Brand",
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 18,
                               fontFamily: "Mulish",
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 5),
                           Text(
-                            "${product.description}${product.description}${product.description}",
-                            //      maxLines: 3,
-                            //     overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            product.brand,
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 14,
+                              fontFamily: "Mulish",
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            "Category",
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: "Mulish",
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            product.category,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: "Mulish",
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            "Description",
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: "Mulish",
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          ExpandableText(
+                            text: "${product.description} ${product.description} ${product.description}",
+                            trimLines: 4,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
                               fontFamily: "Mulish",
                               fontWeight: FontWeight.w400,
                             ),
@@ -249,12 +233,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            print("Add to Cart clicked");
+            debugPrint("Add to Cart clicked");
           },
           backgroundColor: Colors.brown,
           foregroundColor: Colors.white,
-          icon: Icon(Icons.shopping_cart),
-          label: Text(
+          icon: const Icon(Icons.shopping_cart),
+          label: const Text(
             "Add to Cart",
             style: TextStyle(
               fontFamily: "Mulish",
@@ -263,7 +247,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ),
           elevation: 8,
-          // Adds a shadow
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
