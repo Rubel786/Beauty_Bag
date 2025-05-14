@@ -15,7 +15,12 @@ class AddressCard extends StatelessWidget {
       ),
 
       child: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 30),
+        padding: const EdgeInsets.only(
+          left: 10,
+          right: 10,
+          top: 15,
+          bottom: 15,
+        ),
         child: Column(
           children: [
             Row(
@@ -46,7 +51,7 @@ class AddressCard extends StatelessWidget {
                         Text(
                           "9641 Sunset Bivd, Beverly Hills",
                           style: const TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.brown,
                           ),
@@ -54,7 +59,7 @@ class AddressCard extends StatelessWidget {
                         Text(
                           "California",
                           style: const TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: FontWeight.w500,
                             color: kSecondaryTextColor,
                           ),
@@ -79,15 +84,15 @@ class AddressCard extends StatelessWidget {
                       labelText: 'Promo Code',
                       labelStyle: TextStyle(color: Colors.brown),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(color: Colors.brown),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(color: Colors.brown),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(color: Colors.brown),
                       ),
                     ),
@@ -104,9 +109,17 @@ class AddressCard extends StatelessWidget {
                     onPressed: () {
                       // Your action
                     },
-                    child: const Text('APPLY', style: TextStyle(color: Colors.white, fontFamily: "Muli", fontWeight: FontWeight.w600, fontSize: 14),),
+                    child: const Text(
+                      'APPLY',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Muli",
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ],

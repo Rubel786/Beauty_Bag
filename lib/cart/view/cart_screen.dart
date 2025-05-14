@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../init_screen.dart';
 import 'components/cart_card.dart';
 
-class CartScreen extends StatefulWidget {
+class   CartScreen extends StatefulWidget {
   static String routeName = "/cart";
 
   const CartScreen({super.key});
