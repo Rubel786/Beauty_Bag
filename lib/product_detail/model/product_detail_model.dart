@@ -38,7 +38,7 @@ class ProductDetailModel {
       price: (json['price'] as num).toDouble(),
       rating: (json['rating'] as num).toDouble(),
       images: List<String>.from(json['images']),
-      brand: json['brand'],
+      brand: json['brand'] ?? "NA",
       category: json['category'],
       stock: json['stock'],
       warrantyInformation: json['warrantyInformation'],

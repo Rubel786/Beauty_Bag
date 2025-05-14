@@ -36,18 +36,4 @@ class ProductCardViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchProductById(int id) async {
-    _isLoading = true;
-    _errorMessage = null;
-    notifyListeners();
-    try {
-      _product = await _productCardService.fetchProductById(id);
-      _isLoading = false;
-    } catch (error) {
-      _isLoading = false;
-      _errorMessage = error.toString();
-      notifyListeners();
-    }
-  }
-
 }
