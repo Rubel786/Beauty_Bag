@@ -4,6 +4,7 @@ import 'package:beauty_bag/configures/theme.dart';
 import 'package:beauty_bag/home/viewmodel/product_card_view_model.dart';
 import 'package:beauty_bag/utils/wishlist_provider.dart';
 import 'package:provider/provider.dart';
+import 'cart/model/card_model.dart';
 import 'login/view/login_screen.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ProductCardViewModel()),
         ChangeNotifierProvider(create: (_) => WishlistProvider()),
+        ChangeNotifierProvider(create: (_) => CartModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

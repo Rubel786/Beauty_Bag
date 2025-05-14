@@ -1,8 +1,10 @@
 import 'package:beauty_bag/cart/view/components/address_card.dart';
 import 'package:beauty_bag/cart/view/components/payment_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../init_screen.dart';
+import '../model/card_model.dart';
 import 'components/cart_card.dart';
 
 class   CartScreen extends StatefulWidget {
@@ -34,18 +36,23 @@ class _CartScreenState extends State<CartScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ListView.builder(
-                  shrinkWrap: true, // fixes height issue
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 3,
-                  itemBuilder: (BuildContext context, int index) {
-                    return CartCard(
-                      productName: "Jeans",
-                      productImageUrl: "assets/images/default_avatar.jpg",
-                      unitPrice: 35.0,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Products', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.brown)),
+                ),
+                Consumer<CartModel>(
+                  builder: (context, cart, _) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: cart.items.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CartCard(item: cart.items[index]);
+                      },
                     );
                   },
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Delivery Address', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.brown)),

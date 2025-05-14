@@ -6,6 +6,10 @@ import '../../../utils/constants.dart';
 class PaymentCard extends StatelessWidget {
   const PaymentCard({super.key});
 
+  void totalPayment() {
+
+}
+
   @override
   Widget build(BuildContext context) {
     return Container(

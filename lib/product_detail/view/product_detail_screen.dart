@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
+import '../../cart/model/card_model.dart';
+import '../../cart/model/cart_item_model.dart';
 import '../../init_screen.dart';
 import '../../utils/constants.dart';
 import '../../utils/expandable_text.dart';
@@ -11,7 +14,8 @@ class ProductDetailScreen extends StatefulWidget {
   static String routeName = '/product_detail';
   final int productId;
 
-  const ProductDetailScreen({required this.productId, Key? key}) : super(key: key);
+  const ProductDetailScreen({required this.productId, Key? key})
+    : super(key: key);
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -143,7 +147,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             children: [
                               RatingBarIndicator(
                                 rating: product.rating,
-                                itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
+                                itemBuilder:
+                                    (context, _) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
                                 itemCount: 5,
                                 itemSize: 20.0,
                                 direction: Axis.horizontal,
@@ -212,7 +220,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           const SizedBox(height: 10),
                           ExpandableText(
-                            text: "${product.description} ${product.description} ${product.description}",
+                            text:
+                                "${product.description} ${product.description} ${product.description}",
                             trimLines: 4,
                             style: const TextStyle(
                               fontSize: 14,
@@ -230,26 +239,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             }
           },
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            debugPrint("Add to Cart clicked");
+        floatingActionButton: FutureBuilder<ProductDetailModel>(
+          future: productDetail,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return const SizedBox.shrink(); // No button while loading
+
+            final product = snapshot.data!;
+            return FloatingActionButton.extended(
+              onPressed: () {
+                Provider.of<CartModel>(context, listen: false).addItem(
+                  CartItemModel(
+                    productName: product.title,
+                    productImageUrl: product.images[0],
+                    unitPrice: product.price.toDouble(),
+                  ),
+                );
+
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text("Added to Cart")));
+              },
+              icon: const Icon(Icons.shopping_cart),
+              label: const Text("Add to Cart"),
+              backgroundColor: Colors.brown,
+              foregroundColor: Colors.white,
+            );
           },
-          backgroundColor: Colors.brown,
-          foregroundColor: Colors.white,
-          icon: const Icon(Icons.shopping_cart),
-          label: const Text(
-            "Add to Cart",
-            style: TextStyle(
-              fontFamily: "Mulish",
-              fontWeight: FontWeight.w700,
-              fontSize: 16,
-            ),
-          ),
-          elevation: 8,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
