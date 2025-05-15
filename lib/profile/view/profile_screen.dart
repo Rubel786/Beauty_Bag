@@ -1,6 +1,7 @@
 import 'package:beauty_bag/profile/view/components/profile_custom_card.dart';
 import 'package:flutter/material.dart';
 import 'package:beauty_bag/profile/viewmodel/user_profile_viewmodel.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'components/profile_top_container.dart';
@@ -24,13 +25,16 @@ class ProfileScreen extends StatelessWidget {
         child: Consumer<UserProfileViewmodel>(
           builder: (context, viewModel, child) {
             if (viewModel.isLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                child: LoadingAnimationWidget.threeRotatingDots(
+                  color: kPrimaryColor,
+                  size: 50,
+                ),
+              );
             }
-
             if (viewModel.user == null) {
               return Center(child: Text(viewModel.errorMessage ?? "User not found"));
             }
-
             return Scaffold(
               appBar: AppBar(
                 title: const Text(

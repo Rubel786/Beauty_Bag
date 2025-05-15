@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:beauty_bag/home/view/components/middle_container.dart';
 import 'package:beauty_bag/home/view/components/top_container.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../utils/constants.dart';
 import '../../utils/logout_confirmation_dialog.dart';
@@ -85,7 +86,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(height: 10),
                     // ProductListView(),
                     productCardViewModel.isLoading
-                        ? Center(child: CircularProgressIndicator())
+                        ? Center(
+                      child: LoadingAnimationWidget.threeRotatingDots(
+                        color: kPrimaryColor,
+                        size: 50,
+                      ),
+                    )
                         : SizedBox(
                           height: 250, // Adjust height as needed
                           child: ListView.builder(

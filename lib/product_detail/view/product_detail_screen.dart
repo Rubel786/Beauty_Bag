@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../cart/model/card_model.dart';
 import '../../cart/model/cart_item_model.dart';
@@ -65,7 +66,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           future: productDetail,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                child: LoadingAnimationWidget.threeRotatingDots(
+                  color: kPrimaryColor,
+                  size: 50,
+                ),
+              );
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData) {

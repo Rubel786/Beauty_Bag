@@ -19,6 +19,8 @@ class   CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartModel>(context);
+
     return PopScope(
       canPop: false,
       onPopInvoked: (void didPop) async {
@@ -29,7 +31,9 @@ class _CartScreenState extends State<CartScreen> {
           title: const Text("Cart"),
           backgroundColor: Colors.transparent,
         ),
-        body: SingleChildScrollView(
+        body:  cartProvider.items.isEmpty
+            ? const Center(child: Text("No products added yet!!"))
+            :SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 12),
             child: Column(
