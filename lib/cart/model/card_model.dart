@@ -1,23 +1,27 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
 import 'cart_item_model.dart';
 
 class CartModel extends ChangeNotifier {
   final List<CartItemModel> _items = [];
 
+  bool _isUpdating = false;
+  bool get isUpdating => _isUpdating;
+
   List<CartItemModel> get items => _items;
 
-  void addItem(CartItemModel newItem) {
-    // Check if item already exists based on name (you could also use a product ID instead)
-    final index = _items.indexWhere((item) => item.productName == newItem.productName);
+  double get totalPrice =>
+      _items.fold(0, (sum, item) => sum + item.total);
 
-    if (index != -1) {
-      // Item already in cart → increase quantity
-      _items[index].increment();
+  void addItem(CartItemModel newItem) {
+    // Check if item exists already
+    final existing = _items.indexWhere(
+            (item) => item.productName == newItem.productName);
+    if (existing != -1) {
+      _items[existing].increment();
     } else {
-      // New item → add to cart
       _items.add(newItem);
     }
-
     notifyListeners();
   }
 
@@ -26,11 +30,25 @@ class CartModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearCart() {
-    _items.clear();
+  Future<void> incrementItem(CartItemModel item) async {
+    _isUpdating = true;
+    notifyListeners();
+    await Future.delayed(const Duration(milliseconds: 700));
+    item.increment();
+    _isUpdating = false;
     notifyListeners();
   }
 
-  double get totalPrice =>
-      _items.fold(0, (total, current) => total + current.total);
+  Future<void> decrementItem(CartItemModel item) async {
+    _isUpdating = true;
+    notifyListeners();
+    await Future.delayed(const Duration(milliseconds: 700));
+    if (item.quantity > 1) {
+      item.decrement();
+    } else {
+      _items.remove(item);
+    }
+    _isUpdating = false;
+    notifyListeners();
+  }
 }

@@ -97,7 +97,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           topLeft: Radius.circular(40),
                         ),
                       ),
-                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 150),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -236,6 +236,64 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
+                          const SizedBox(height: 15),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    Provider.of<CartModel>(
+                                      context,
+                                      listen: false,
+                                    ).addItem(
+                                      CartItemModel(
+                                        productName: product.title,
+                                        productImageUrl: product.images[0],
+                                        unitPrice: product.price.toDouble(),
+                                      ),
+                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("1 item added to Cart"),
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.shopping_cart),
+                                  label: const Text("Add to Cart"),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.brown,
+                                    foregroundColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/cart');
+                                  },
+                                  icon: const Icon(Icons.visibility),
+                                  label: const Text("View Cart"),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: Colors.brown,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -243,34 +301,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               );
             }
-          },
-        ),
-        floatingActionButton: FutureBuilder<ProductDetailModel>(
-          future: productDetail,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData)
-              return const SizedBox.shrink(); // No button while loading
-
-            final product = snapshot.data!;
-            return FloatingActionButton.extended(
-              onPressed: () {
-                Provider.of<CartModel>(context, listen: false).addItem(
-                  CartItemModel(
-                    productName: product.title,
-                    productImageUrl: product.images[0],
-                    unitPrice: product.price.toDouble(),
-                  ),
-                );
-
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(const SnackBar(content: Text("Added to Cart")));
-              },
-              icon: const Icon(Icons.shopping_cart),
-              label: const Text("Add to Cart"),
-              backgroundColor: Colors.brown,
-              foregroundColor: Colors.white,
-            );
           },
         ),
       ),

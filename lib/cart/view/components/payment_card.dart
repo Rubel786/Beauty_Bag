@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/dotted_line.dart';
@@ -11,9 +12,22 @@ class PaymentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Consumer<CartModel>(
       builder: (context, cart, _) {
-        final totalItems = cart.items.fold<int>(0, (sum, item) => sum + item.quantity);
+        if (cart.isUpdating) {
+          return Center(
+            child: LoadingAnimationWidget.waveDots(
+              color: kPrimaryColor,
+              size: 50,
+            ),
+          );
+        }
+
+        final totalItems = cart.items.fold<int>(
+          0,
+          (sum, item) => sum + item.quantity,
+        );
         final subtotal = cart.totalPrice;
         final totalPayment = subtotal + shippingCharge;
 

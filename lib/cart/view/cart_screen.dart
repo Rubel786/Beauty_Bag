@@ -20,7 +20,6 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartModel>(context);
-
     return PopScope(
       canPop: false,
       onPopInvoked: (void didPop) async {

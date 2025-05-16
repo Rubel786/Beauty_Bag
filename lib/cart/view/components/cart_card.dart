@@ -72,21 +72,15 @@ class CartCard extends StatelessWidget {
                               model.quantity == 1 ? Icons.delete : Icons.remove,
                             ),
                             onPressed: () {
-                              if (model.quantity == 1) {
-                                Provider.of<CartModel>(
-                                  context,
-                                  listen: false,
-                                ).removeItem(model);
-                              } else {
-                                model.decrement();
-                              }
+                              Provider.of<CartModel>(context, listen: false).decrementItem(item);
                             },
                           ),
                           Text('${model.quantity}'),
                           IconButton(
                             icon: const Icon(Icons.add),
-                            onPressed: () => model.increment(),
-                          ),
+                            onPressed: () {
+                              Provider.of<CartModel>(context, listen: false).incrementItem(item);
+                            },                          ),
                         ],
                       ),
                 ),
