@@ -46,8 +46,7 @@ class PaymentCard extends StatelessWidget {
                     Text(
                       "Total items ($totalItems)",
                       style: const TextStyle(
-                        fontFamily: "Muli",
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: kPrimaryTextColor,
                       ),
@@ -55,8 +54,7 @@ class PaymentCard extends StatelessWidget {
                     Text(
                       "\$${subtotal.toStringAsFixed(2)}",
                       style: const TextStyle(
-                        fontFamily: "Muli",
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
                       ),
@@ -70,8 +68,7 @@ class PaymentCard extends StatelessWidget {
                     Text(
                       "Shipping",
                       style: TextStyle(
-                        fontFamily: "Muli",
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: kPrimaryTextColor,
                       ),
@@ -79,8 +76,7 @@ class PaymentCard extends StatelessWidget {
                     Text(
                       "\$10.00",
                       style: TextStyle(
-                        fontFamily: "Muli",
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
                       ),
@@ -96,18 +92,16 @@ class PaymentCard extends StatelessWidget {
                     const Text(
                       "Total Payment",
                       style: TextStyle(
-                        fontFamily: "Muli",
-                        fontSize: 19,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
                         color: kPrimaryTextColor,
                       ),
                     ),
                     Text(
                       "\$${totalPayment.toStringAsFixed(2)}",
                       style: const TextStyle(
-                        fontFamily: "Muli",
-                        fontSize: 19,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
                         color: Colors.black,
                       ),
                     ),

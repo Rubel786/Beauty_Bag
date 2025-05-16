@@ -113,9 +113,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                     color: Colors.brown,
-                                    fontSize: 28,
-                                    fontFamily: "Mulish",
-                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
@@ -128,7 +127,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     "\$${product.price}",
                                     style: const TextStyle(
                                       color: Colors.black,
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       fontFamily: "Mulish",
                                       fontWeight: FontWeight.w700,
                                       decoration: TextDecoration.lineThrough,
@@ -139,8 +138,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     "\$${product.discountPercentage}",
                                     style: const TextStyle(
                                       color: Colors.brown,
-                                      fontSize: 22,
-                                      fontFamily: "Mulish",
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
@@ -160,15 +158,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       color: Colors.amber,
                                     ),
                                 itemCount: 5,
-                                itemSize: 20.0,
+                                itemSize: 15.0,
                                 direction: Axis.horizontal,
                               ),
                               const SizedBox(width: 5),
                               Text(
                                 "${product.rating}",
                                 style: const TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: "Mulish",
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.brown,
                                 ),
@@ -180,8 +177,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             "Brand",
                             style: const TextStyle(
                               color: Colors.black,
-                              fontSize: 18,
-                              fontFamily: "Mulish",
+                              fontSize: 14,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -190,7 +186,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             product.brand,
                             style: const TextStyle(
                               color: Colors.black,
-                              fontSize: 14,
+                              fontSize: 12,
                               fontFamily: "Mulish",
                               fontWeight: FontWeight.w400,
                             ),
@@ -200,7 +196,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             "Category",
                             style: const TextStyle(
                               color: Colors.black,
-                              fontSize: 18,
+                              fontSize: 14,
                               fontFamily: "Mulish",
                               fontWeight: FontWeight.w500,
                             ),
@@ -210,7 +206,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             product.category,
                             style: const TextStyle(
                               color: Colors.black,
-                              fontSize: 14,
+                              fontSize: 12,
                               fontFamily: "Mulish",
                               fontWeight: FontWeight.w400,
                             ),
@@ -220,7 +216,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             "Description",
                             style: const TextStyle(
                               color: Colors.black,
-                              fontSize: 18,
+                              fontSize: 14,
                               fontFamily: "Mulish",
                               fontWeight: FontWeight.w500,
                             ),
@@ -231,7 +227,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 "${product.description} ${product.description} ${product.description}",
                             trimLines: 4,
                             style: const TextStyle(
-                              fontSize: 14,
+                              fontSize: 12,
                               color: Colors.black,
                               fontFamily: "Mulish",
                               fontWeight: FontWeight.w400,

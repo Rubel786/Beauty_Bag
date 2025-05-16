@@ -52,8 +52,8 @@ class ProfileCustomCard extends StatelessWidget {
                   Text(
                     title,
                     style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
                       color: kPrimaryColor,
                     ),
                   ),

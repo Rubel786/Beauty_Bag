@@ -51,7 +51,7 @@ class _CartScreenState extends State<CartScreen> {
                             'Products',
                             style: const TextStyle(
                               fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                               color: Colors.brown,
                             ),
                           ),
@@ -75,7 +75,7 @@ class _CartScreenState extends State<CartScreen> {
                             'Delivery Address',
                             style: const TextStyle(
                               fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                               color: Colors.brown,
                             ),
                           ),
@@ -89,7 +89,7 @@ class _CartScreenState extends State<CartScreen> {
                             'Payment',
                             style: const TextStyle(
                               fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                               color: Colors.brown,
                             ),
                           ),
@@ -116,8 +116,7 @@ class _CartScreenState extends State<CartScreen> {
                                 child: const Text(
                                   'PAYMENT',
                                   style: TextStyle(
-                                    fontFamily: "Muli",
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w500,
                                     fontSize: 14,
                                   ),
                                 ),

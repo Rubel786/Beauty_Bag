@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Sign in',
                               style: TextStyle(
                                 fontSize: 28,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.brown,
                               ),
                             ),

@@ -51,16 +51,16 @@ class AddressCard extends StatelessWidget {
                         Text(
                           "9641 Sunset Bivd, Beverly Hills",
                           style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
                             color: Colors.brown,
                           ),
                         ),
                         Text(
                           "California",
                           style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
                             color: kSecondaryTextColor,
                           ),
                         ),
@@ -74,58 +74,72 @@ class AddressCard extends StatelessWidget {
             SizedBox(height: 15),
             Row(
               children: [
+                // Promo Code Input
                 Expanded(
                   flex: 2,
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.start,
-                    decoration: InputDecoration(
-                      hintText: 'Enter Promo Code',
-                      labelText: 'Promo Code',
-                      labelStyle: TextStyle(color: Colors.brown),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: Colors.brown),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: Colors.brown),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: Colors.brown),
+                  child: SizedBox(
+                    height: 42,
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.start,
+                      decoration: InputDecoration(
+                        hintText: 'Enter Promo Code',
+                        hintStyle: const TextStyle(
+                          fontSize: 12
+                        ),
+                        labelText: 'Promo Code',
+                        labelStyle: TextStyle(color: Colors.brown, fontSize: 12),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.brown),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.brown),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.brown),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+
+                const SizedBox(width: 10),
+
+                // Apply Button
                 Expanded(
                   flex: 1,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.brown,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                  child: SizedBox(
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.brown,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      // Your action
-                    },
-                    child: const Text(
-                      'APPLY',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Muli",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
+                      onPressed: () {
+                        // Apply promo logic
+                      },
+                      child: const Text(
+                        'APPLY',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Mulish",
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ],
             ),
+
           ],
         ),
       ),

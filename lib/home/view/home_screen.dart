@@ -33,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
-              fontFamily: "Mulish",
               fontWeight: FontWeight.w500,
               fontSize: 20,
             ),
@@ -61,9 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             "Popular Items",
                             style: TextStyle(
                               color: Colors.brown,
-                              fontFamily: "Mulish",
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
                             ),
                           ),
                           TextButton(
@@ -76,14 +74,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.grey,
                                 fontFamily: "Mulish",
                                 fontWeight: FontWeight.w500,
-                                fontSize: 18,
+                                fontSize: 14,
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
                     // ProductListView(),
                     productCardViewModel.isLoading
                         ? Center(

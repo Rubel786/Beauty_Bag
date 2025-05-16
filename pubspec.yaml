@@ -81,13 +81,24 @@ flutter:
     - assets/images/
     - assets/icons/
   fonts:
-    - family: Muli
+    - family: Mulish
       fonts:
-        - asset: assets/fonts/muli/Muli.ttf
-        - asset: assets/fonts/muli/Muli-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/muli/Muli-Light.ttf
+        - asset: assets/fonts/mulish/Mulish-Black.ttf
+        - asset: assets/fonts/mulish/Mulish-BlackItalic.ttf
+
+        - asset: assets/fonts/mulish/Mulish-Light.ttf
+          weight: 100
+        - asset: assets/fonts/mulish/Mulish-Regular.ttf
+          weight: 200
+        - asset: assets/fonts/mulish/Mulish-Medium.ttf
           weight: 300
+        - asset: assets/fonts/mulish/Mulish-SemiBold.ttf
+          weight: 400
+        - asset: assets/fonts/mulish/Mulish-Bold.ttf
+          weight: 500
+        - asset: assets/fonts/mulish/Mulish-ExtraBold.ttf
+          weight: 600
+
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

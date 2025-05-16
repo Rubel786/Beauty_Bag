@@ -28,7 +28,7 @@ class MiddleContainer extends StatelessWidget {
                       width: 50.0,
                       height: 45.0,
                     ),
-                    Text("FACE", style: TextStyle(fontSize: 20)),
+                    Text("FACE", style: TextStyle(fontSize: 16)),
                   ],
                 ),
 
@@ -40,7 +40,7 @@ class MiddleContainer extends StatelessWidget {
                       width: 50.0,
                       height: 45.0,
                     ),
-                    Text("EYE", style: TextStyle(fontSize: 20)),
+                    Text("EYE", style: TextStyle(fontSize: 16)),
                   ],
                 ),
                 Column(
@@ -50,7 +50,7 @@ class MiddleContainer extends StatelessWidget {
                       width: 50.0,
                       height: 45.0,
                     ),
-                    Text("LIPS", style: TextStyle(fontSize: 20)),
+                    Text("LIPS", style: TextStyle(fontSize: 16)),
                   ],
                 ),
                 Column(
@@ -60,7 +60,7 @@ class MiddleContainer extends StatelessWidget {
                       width: 50.0,
                       height: 45.0,
                     ),
-                    Text("SKIN", style: TextStyle(fontSize: 20)),
+                    Text("SKIN", style: TextStyle(fontSize: 16)),
                   ],
                 ),
               ],

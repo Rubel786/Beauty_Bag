@@ -59,7 +59,7 @@ class ProductCard extends StatelessWidget {
                               "${product.rating}",
                               style: const TextStyle(
                                 fontSize: 14,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.black,
                               ),
                             ),
@@ -80,7 +80,11 @@ class ProductCard extends StatelessWidget {
               Text(
                 product.productName,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              ),
                 maxLines: 1,
               ),
               Row(
@@ -90,7 +94,7 @@ class ProductCard extends StatelessWidget {
                     "\$${product.price}",
                     style: const TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       color: kPrimaryColor,
                     ),
                   ),

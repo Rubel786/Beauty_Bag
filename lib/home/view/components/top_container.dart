@@ -26,8 +26,7 @@ class TopContainer extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
-              fontFamily: "Mulish",
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w500,
               fontSize: 25,
             ),
           ),
@@ -36,7 +35,6 @@ class TopContainer extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
-              fontFamily: "Mulish",
               fontWeight: FontWeight.w300,
               fontSize: 25,
             ),

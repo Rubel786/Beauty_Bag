@@ -41,7 +41,6 @@ class ProfileScreen extends StatelessWidget {
                   'Profile',
                   style: TextStyle(
                     color: Colors.white,
-                    fontFamily: "Mulish",
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
                   ),

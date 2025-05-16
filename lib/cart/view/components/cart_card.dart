@@ -42,8 +42,8 @@ class CartCard extends StatelessWidget {
                       Text(
                         item.productName,
                         style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -52,7 +52,7 @@ class CartCard extends StatelessWidget {
                             (_, model, __) => Text(
                               '\$${model.total.toStringAsFixed(2)}',
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.green,
                               ),
@@ -69,6 +69,7 @@ class CartCard extends StatelessWidget {
                         children: [
                           IconButton(
                             icon: Icon(
+                              size: 16,
                               model.quantity == 1 ? Icons.delete : Icons.remove,
                             ),
                             onPressed: () {
@@ -77,7 +78,7 @@ class CartCard extends StatelessWidget {
                           ),
                           Text('${model.quantity}'),
                           IconButton(
-                            icon: const Icon(Icons.add),
+                            icon: const Icon(Icons.add,size: 16,),
                             onPressed: () {
                               Provider.of<CartModel>(context, listen: false).incrementItem(item);
                             },                          ),
