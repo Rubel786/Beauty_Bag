@@ -103,8 +103,12 @@ class AddressCard extends StatelessWidget {
                   flex: 1,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: kPrimaryTextColor,
-                      textStyle: const TextStyle(),
+                      backgroundColor: Colors.brown,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                     onPressed: () {
                       // Your action

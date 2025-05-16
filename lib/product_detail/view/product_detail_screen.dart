@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../cart/model/card_model.dart';
@@ -252,10 +253,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         unitPrice: product.price.toDouble(),
                                       ),
                                     );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text("1 item added to Cart"),
-                                      ),
+                                    Fluttertoast.showToast(
+                                      msg: "1 item added to Cart",
+                                      toastLength: Toast.LENGTH_LONG,
+                                      gravity: ToastGravity.CENTER,
+                                      backgroundColor: Colors.grey,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0,
                                     );
                                   },
                                   icon: const Icon(Icons.shopping_cart),
