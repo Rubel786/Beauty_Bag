@@ -1,3 +1,4 @@
+import 'package:beauty_bag/home/view/components/view_all_screen.dart';
 import 'package:beauty_bag/product_detail/view/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,6 +18,7 @@ final Map<String, WidgetBuilder> routes = {
   FavouriteScreen.routeName: (context) => FavouriteScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
   CartScreen.routeName: (context) => CartScreen(),
+  ViewAllScreen.routeName: (context) => ViewAllScreen(),
   ProductDetailScreen.routeName: (context) {
     final args = ModalRoute.of(context)!.settings.arguments as int;
     return ProductDetailScreen(productId: args);

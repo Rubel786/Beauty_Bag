@@ -6,8 +6,10 @@ import 'package:provider/provider.dart';
 import '../../utils/constants.dart';
 import '../../utils/logout_confirmation_dialog.dart';
 import '../model/product_card_model.dart';
+import '../service/product_card_service.dart';
 import '../viewmodel/product_card_view_model.dart';
 import 'components/product_card.dart';
+import 'components/view_all_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
@@ -17,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     final productCardViewModel = Provider.of<ProductCardViewModel>(context);
@@ -41,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
           iconTheme: IconThemeData(color: Colors.white),
         ),
         body: Provider<ProductCardViewModel>(
-          // Wrap HomeScreen with Provider
           create: (context) => ProductCardViewModel(), // Create the ViewModel
           child: SingleChildScrollView(
             child: Stack(
@@ -66,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           TextButton(
                             onPressed: () {
-                              // Navigate to full product list screen
+                              Navigator.pushNamed(context, ViewAllScreen.routeName);
                             },
                             child: Text(
                               "View all",

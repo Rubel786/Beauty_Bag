@@ -19,10 +19,10 @@ class FavouriteScreen extends StatelessWidget {
         Navigator.pushReplacementNamed(context, InitScreen.routeName);
       },
       child: Scaffold(
-        appBar: AppBar(centerTitle: true,
+        appBar: AppBar(
             backgroundColor: Colors.transparent,
             title: Text("Favourites"),
-          titleTextStyle: TextStyle(fontFamily: 'Mulish', fontSize: 24, color: Colors.brown),
+          titleTextStyle: TextStyle(fontFamily: 'Mulish', fontSize: 20, color: Colors.brown),
         ),
         body: wishlistProvider.wishlist.isEmpty
             ? const Center(child: Text("No Favorites Yet!"))
