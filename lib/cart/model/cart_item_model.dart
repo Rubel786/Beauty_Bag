@@ -1,8 +1,7 @@
-// lib/model/cart_item_model.dart
 import 'package:flutter/foundation.dart';
 
-class CartItemModel extends ChangeNotifier {
-  int quantity = 1;
+class CartItemModel with ChangeNotifier {
+  int quantity;
   final String productName;
   final String productImageUrl;
   final double unitPrice;
@@ -11,6 +10,7 @@ class CartItemModel extends ChangeNotifier {
     required this.productName,
     required this.productImageUrl,
     required this.unitPrice,
+    this.quantity = 1,
   });
 
   double get total => quantity * unitPrice;
@@ -25,5 +25,23 @@ class CartItemModel extends ChangeNotifier {
       quantity--;
       notifyListeners();
     }
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'productName': productName,
+      'productImageUrl': productImageUrl,
+      'unitPrice': unitPrice,
+      'quantity': quantity,
+    };
+  }
+
+  factory CartItemModel.fromJson(Map<String, dynamic> json) {
+    return CartItemModel(
+      productName: json['productName'],
+      productImageUrl: json['productImageUrl'],
+      unitPrice: (json['unitPrice'] as num).toDouble(),
+      quantity: json['quantity'] ?? 1,
+    );
   }
 }

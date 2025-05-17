@@ -1,4 +1,3 @@
-// lib/widgets/cart_card.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/constants.dart';
@@ -12,7 +11,7 @@ class CartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
+    return ChangeNotifierProvider<CartItemModel>.value(
       value: item,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
@@ -48,42 +47,43 @@ class CartCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Consumer<CartItemModel>(
-                        builder:
-                            (_, model, __) => Text(
-                              '\$${model.total.toStringAsFixed(2)}',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green,
-                              ),
-                            ),
+                        builder: (_, model, __) => Text(
+                          '\$${model.total.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 12),
                 Consumer<CartItemModel>(
-                  builder:
-                      (context, model, _) => Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              size: 16,
-                              model.quantity == 1 ? Icons.delete : Icons.remove,
-                            ),
-                            onPressed: () {
-                              Provider.of<CartModel>(context, listen: false).decrementItem(item);
-                            },
-                          ),
-                          Text('${model.quantity}'),
-                          IconButton(
-                            icon: const Icon(Icons.add,size: 16,),
-                            onPressed: () {
-                              Provider.of<CartModel>(context, listen: false).incrementItem(item);
-                            },                          ),
-                        ],
+                  builder: (context, model, _) => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          size: 16,
+                          model.quantity == 1 ? Icons.delete : Icons.remove,
+                        ),
+                        onPressed: () {
+                          Provider.of<CartModel>(context, listen: false)
+                              .decrementItem(model);
+                        },
                       ),
+                      Text('${model.quantity}'),
+                      IconButton(
+                        icon: const Icon(Icons.add, size: 16),
+                        onPressed: () {
+                          Provider.of<CartModel>(context, listen: false)
+                              .incrementItem(model);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
