@@ -1,4 +1,5 @@
 import 'package:beauty_bag/cart/view/cart_screen.dart';
+import 'package:beauty_bag/chat/view/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:beauty_bag/favourite/view/favourite_screen.dart';
@@ -27,7 +28,7 @@ class _InitScreenState extends State<InitScreen> {
     });
   }
 
-  final pages = [HomeScreen(), FavouriteScreen(), CartScreen(), HomeScreen(), ProfileScreen()];
+  final pages = [HomeScreen(), FavouriteScreen(), CartScreen(), ChatScreen(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {

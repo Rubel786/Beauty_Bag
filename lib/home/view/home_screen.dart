@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: kPrimaryColor,
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        body: Provider<ProductCardViewModel>(
+        body: ChangeNotifierProvider(
           create: (context) => ProductCardViewModel(), // Create the ViewModel
           child: SingleChildScrollView(
             child: Stack(
@@ -97,9 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 250, // Adjust height as needed
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: productCardViewModel.products.length,
+                            itemCount: productCardViewModel.limitedProducts.length,
                             itemBuilder: (context, index) {
-                              final post = productCardViewModel.products[index];
+                              final post = productCardViewModel.limitedProducts[index];
                               final products = ProductCardModel(
                                 id: post.id,
                                 productName: post.productName,

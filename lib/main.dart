@@ -1,3 +1,4 @@
+import 'package:beauty_bag/chat/viewmodel/chat_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:beauty_bag/configures/routes.dart';
 import 'package:beauty_bag/configures/theme.dart';
@@ -21,6 +22,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductCardViewModel()),
         ChangeNotifierProvider(create: (_) => WishlistProvider()),
         ChangeNotifierProvider(create: (_) => CartModel()),
+        ChangeNotifierProvider(create: (_) => ChatViewModel()),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
