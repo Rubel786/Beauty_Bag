@@ -35,12 +35,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (void didPop) async {
-        Navigator.pushReplacementNamed(context, InitScreen.routeName);
-      },
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -244,6 +239,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       listen: false,
                                     ).addItem(
                                       CartItemModel(
+                                        id: product.id,
+                                        rating: product.rating,
                                         productName: product.title,
                                         productImageUrl: product.images[0],
                                         unitPrice: product.price.toDouble(),
@@ -303,7 +300,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             }
           },
         ),
-      ),
     );
   }
 }

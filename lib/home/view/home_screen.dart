@@ -19,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     final productCardViewModel = Provider.of<ProductCardViewModel>(context);
@@ -68,7 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, ViewAllScreen.routeName);
+                              Navigator.pushNamed(
+                                context,
+                                ViewAllScreen.routeName,
+                              );
                             },
                             child: Text(
                               "View all",
@@ -86,28 +88,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     // ProductListView(),
                     productCardViewModel.isLoading
                         ? Center(
-                      child: LoadingAnimationWidget.threeRotatingDots(
-                        color: kPrimaryColor,
-                        size: 50,
-                      ),
-                    )
+                          child: LoadingAnimationWidget.threeRotatingDots(
+                            color: kPrimaryColor,
+                            size: 50,
+                          ),
+                        )
                         : SizedBox(
                           height: 250, // Adjust height as needed
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: productCardViewModel.products.length,
                             itemBuilder: (context, index) {
-                                final post = productCardViewModel.products[index];
-                                final products = ProductCardModel(
-                                  id: post.id,
-                                  productName: post.productName,
-                                  price: post.price,
-                                  rating: post.rating,
-                                  images: post.images,
-                                  isWhishlist: false,
-                                );
-                                return ProductCard(product: products);
-                              },
+                              final post = productCardViewModel.products[index];
+                              final products = ProductCardModel(
+                                id: post.id,
+                                productName: post.productName,
+                                price: post.price,
+                                rating: post.rating,
+                                images: post.images,
+                                isWhishlist: false,
+                              );
+                              return ProductCard(product: products);
+                            },
                           ),
                         ),
                   ],

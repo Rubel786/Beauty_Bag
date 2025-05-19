@@ -21,8 +21,7 @@ class ProductCardModel {
     return ProductCardModel(
       id: json['id'] ?? 0,
       productName: json['productName'] ?? json['title'] ?? "Unknown Product", // support both
-      images:
-          json['images'] != null && json['images'] is List
+      images: json['images'] != null && json['images'] is List
               ? List<String>.from(json['images'])
               : [],
       rating: json['rating']?.toString() ?? "0.0",
