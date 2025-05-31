@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../init_screen.dart';
+import '../../utils/constants.dart';
 import '../model/card_model.dart';
 import 'components/cart_card.dart';
 
@@ -27,8 +28,13 @@ class _CartScreenState extends State<CartScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Cart"),
-          backgroundColor: Colors.transparent,
+          backgroundColor: kPrimaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
+          title: Text("Cart"),
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
         ),
         body:
             cartProvider.items.isEmpty

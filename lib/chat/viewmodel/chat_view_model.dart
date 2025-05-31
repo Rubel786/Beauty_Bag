@@ -1,35 +1,45 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 import '../model/chat_model.dart';
 
 class ChatViewModel extends ChangeNotifier {
-  final String apiKey = 'AIzaSyBzzVBCdZ-Sh2wOHlNJ2BXcGW9TR5JWvtY';
-  final List<ChatMessage> messages = [];
-  late final GenerativeModel _model;
-  late final ChatSession _chat;
+  List<ChatModel> messages = [];
   bool isLoading = false;
 
-  ChatViewModel() {
-    _model = GenerativeModel(
-      model: 'gemini-pro',
-      apiKey: apiKey,
-    );
-    _chat = _model.startChat();
-  }
+  final String OPENAI_API_KEY = dotenv.env['OPENAI_API_KEY'] ?? '';
 
   Future<void> sendMessage(String userMessage) async {
-    messages.add(ChatMessage(role: 'user', content: userMessage));
+    messages.add(ChatModel(role: 'user', content: userMessage));
     isLoading = true;
     notifyListeners();
 
-    try {
-      final response = await _chat.sendMessage(Content.text(userMessage));
-      final reply = response.text ?? 'No response from Gemini.';
-      messages.add(ChatMessage(role: 'model', content: reply));
-    } catch (e) {
-      messages.add(ChatMessage(
-        role: 'model',
-        content: 'Error: ${e.toString()}',
+    final response = await http.post(
+      Uri.parse("https://api.openai.com/v1/chat/completions"),
+      headers: {
+        'Authorization': 'Bearer $OPENAI_API_KEY',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        "model": "gpt-4o-mini",
+        "messages": messages.map((msg) => {
+          "role": msg.role,
+          "content": msg.content,
+        }).toList(),
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final decoded = jsonDecode(response.body);
+      final reply = decoded['choices'][0]['message']['content'];
+      messages.add(ChatModel(role: 'assistant', content: reply));
+    } else {
+      messages.add(ChatModel(role: 'assistant', content: 'Something went wrong!'));
+      final error = jsonDecode(response.body);
+      messages.add(ChatModel(
+        role: 'assistant',
+        content: 'Error: ${error['error']['message'] ?? 'Unknown error'}',
       ));
     }
 
