@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => WishlistProvider()),
         ChangeNotifierProvider(create: (_) => CartModel()),
         ChangeNotifierProvider(create: (_) => ChatViewModel()),
-
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
