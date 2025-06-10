@@ -40,7 +40,7 @@ class ChatScreen extends StatelessWidget {
                             child: Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: message.role == 'user' ? Colors.blue[100] : Colors.grey[200],
+                                color: message.role == 'user' ? kPrimaryShadowColor : kPrimaryBodyColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Text(message.content),
@@ -56,8 +56,24 @@ class ChatScreen extends StatelessWidget {
                       Expanded(
                         child: TextField(
                           controller: _controller,
-                          decoration: InputDecoration(hintText: "Ask something...",
-                            border: OutlineInputBorder()
+                          decoration: InputDecoration(
+                            hintText: 'Ask Something....',
+                            hintStyle: const TextStyle(
+                                fontSize: 12
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: Colors.brown),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: Colors.brown),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: Colors.brown),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                           ),
                         ),
                       ),
