@@ -15,6 +15,9 @@ class ProductCardViewModel extends ChangeNotifier {
   List<ProductCardModel> _products = [];
   List<ProductCardModel> get products => _products ;
 
+  List<ProductCardModel> _allProducts = [];
+  List<ProductCardModel> get limitedProducts => _allProducts.take(10).toList();
+
   ProductCardModel? _product;
   ProductCardModel? get product => _product;
 
@@ -26,14 +29,18 @@ class ProductCardViewModel extends ChangeNotifier {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
+
     try {
-      _products = await _productCardService.fetchProducts();
+      _allProducts = await _productCardService.fetchProducts(); // ✅ Populate this
+      _products = _allProducts; // Optional: in case both are needed separately
       _isLoading = false;
+      notifyListeners(); // ✅ Notify after update
     } catch (error) {
       _isLoading = false;
       _errorMessage = error.toString();
-      notifyListeners();// Print error to logs
+      notifyListeners();
     }
   }
+
 
 }

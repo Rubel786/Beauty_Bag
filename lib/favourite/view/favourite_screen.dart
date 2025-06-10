@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../home/view/components/product_card.dart';
 import '../../utils/wishlist_provider.dart';
 
-
 class FavouriteScreen extends StatelessWidget {
   static String routeName = "/favourite";
 
@@ -15,34 +14,41 @@ class FavouriteScreen extends StatelessWidget {
 
     return PopScope(
       canPop: false,
-      onPopInvoked:(void didPop) async {
+      onPopInvoked: (void didPop) async {
         Navigator.pushReplacementNamed(context, InitScreen.routeName);
       },
       child: Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            title: Text("Favourites"),
-          titleTextStyle: TextStyle(fontFamily: 'Mulish', fontSize: 20, color: Colors.brown),
-        ),
-        body: wishlistProvider.wishlist.isEmpty
-            ? const Center(child: Text("No Favorites Yet!"))
-            : Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: GridView.builder(
-            shrinkWrap: true,
-            itemCount: wishlistProvider.wishlist.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisExtent: 220, // Fixed height per card (adjust as needed)
-            ),
-            itemBuilder: (context, index) {
-              return ProductCard(
-                product: wishlistProvider.wishlist[index],
-              );
-            },
+          backgroundColor: kPrimaryColor,
+          iconTheme: IconThemeData(color: Colors.white),
+          title: Text("Favourites"),
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
           ),
         ),
+        body:
+            wishlistProvider.wishlist.isEmpty
+                ? const Center(child: Text("No Favorites Yet!"))
+                : Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    itemCount: wishlistProvider.wishlist.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisExtent:
+                              220, // Fixed height per card (adjust as needed)
+                        ),
+                    itemBuilder: (context, index) {
+                      return ProductCard(
+                        product: wishlistProvider.wishlist[index],
+                      );
+                    },
+                  ),
+                ),
       ),
     );
   }

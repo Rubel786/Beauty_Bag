@@ -1,37 +1,26 @@
 import 'package:flutter/material.dart';
-import '../../login/service/auth_service.dart';
 import '../model/user_profile_model.dart';
-import '../service/user_profile_service.dart'; // Adjust the import path
+import '../service/user_profile_service.dart';
 
 class UserProfileViewmodel extends ChangeNotifier {
   UserProfileModel? user;
   bool isLoading = true;
   String? errorMessage;
-  BuildContext context; // Add a BuildContext
+  final BuildContext context;
 
-  UserProfileViewmodel(this.context); // Constructor to receive the context
+  UserProfileViewmodel(this.context); // Injected context used by the service
 
   Future<void> loadUser() async {
+    isLoading = true;
+    notifyListeners();
+
     try {
-      isLoading = true;
-      notifyListeners();
-
-      final token = await AuthService().getSavedToken();
-      if (token == null) {
-        throw Exception("Access token not found");
-      }
-
-      // Pass the context when creating UserProfileService
-      user = await UserProfileService(context).fetchUser(token);
+      user = await UserProfileService(context).fetchUser();
       errorMessage = null;
     } catch (e) {
       errorMessage = e.toString();
       user = null;
-      // Optionally handle specific exceptions here, e.g., "Session expired"
-      if (errorMessage == 'Session expired') {
-        // The alert and navigation are already handled in UserProfileService
-        // You might want to clear local data here if needed.
-      }
+      // Session expiration dialog is already handled globally in the service
     } finally {
       isLoading = false;
       notifyListeners();
