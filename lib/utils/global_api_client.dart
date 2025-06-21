@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GlobalApiClient {
+  final navigatorKey = GlobalKey<NavigatorState>(); // import this from a common place
   final BuildContext context;
   final String baseUrl = 'https://dummyjson.com';
 

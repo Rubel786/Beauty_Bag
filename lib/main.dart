@@ -52,6 +52,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   void initState() {
     super.initState();
@@ -73,8 +74,24 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Foreground Message: ${message.notification?.title}');
       print('Foreground Message: ${message.notification?.body}');
-    });
 
+      final context = navigatorKey.currentContext;
+      if (context != null) {
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text(message.notification?.title ?? 'Notification'),
+            content: Text(message.notification?.body ?? 'You have a new message'),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          ),
+        );
+      }
+    });
     // Message opened from terminated state
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('Notification clicked!');
@@ -91,6 +108,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => ChatViewModel()),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'Beauty Bag',
         theme: AppTheme.lightTheme(context),
