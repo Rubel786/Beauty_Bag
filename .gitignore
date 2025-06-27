@@ -50,4 +50,5 @@ ios/Runner/GoogleService-Info.plist
 .env
 lib/firebase_options.dart
 firebase.json
+google-services.json
 

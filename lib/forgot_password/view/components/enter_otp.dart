@@ -1,18 +1,24 @@
-import 'package:beauty_bag/forgot_password/view/forgot_password_screen.dart';
-import 'package:beauty_bag/init_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // For TextInputFormatter
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../../../utils/constants.dart'; // For SVG assets
+ import 'package:beauty_bag/forgot_password/view/forgot_password_screen.dart';
+ import 'package:beauty_bag/init_screen.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter/services.dart';
+ import 'package:firebase_auth/firebase_auth.dart';
+ import 'package:flutter_svg/flutter_svg.dart';
+ import '../../../utils/constants.dart';
 
-// Placeholder
 
 class EnterOtp extends StatefulWidget {
   static String routeName = "/otp_screen";
   final String phoneNumber;
+  final String? initialVerificationId; // New: To pass verification ID from previous screen
+  final int? initialResendToken; // New: To pass resend token
 
-  const EnterOtp({Key? key, required this.phoneNumber}) : super(key: key);
+  const EnterOtp({
+    Key? key,
+    required this.phoneNumber,
+    this.initialVerificationId,
+    this.initialResendToken,
+  }) : super(key: key);
 
   @override
   State<EnterOtp> createState() => _EnterOtpState();
@@ -21,8 +27,9 @@ class EnterOtp extends StatefulWidget {
 class _EnterOtpState extends State<EnterOtp> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String? _verificationId;
+  int? _resendToken; // Store resend token
   bool _isSendingOtp = false; // To prevent multiple OTP send requests
-  bool _isLoading = false; // For showing a loading indicator during verification
+  bool _isLoading = false; // For showing a loading indicator during verification/sending
 
   // Controllers for each OTP input field
   final List<TextEditingController> _otpControllers =
@@ -33,10 +40,20 @@ class _EnterOtpState extends State<EnterOtp> {
   @override
   void initState() {
     super.initState();
-    // Delay sending OTP slightly to ensure widget is fully built
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _sendOTP();
-    });
+    // Check if verificationId was passed from the previous screen
+    if (widget.initialVerificationId != null) {
+      _verificationId = widget.initialVerificationId;
+      _resendToken = widget.initialResendToken;
+      // Show initial "OTP Sent" message if ID was pre-provided
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showMessageBox('OTP Sent', 'A 6-digit code has been sent to ${widget.phoneNumber}.');
+      });
+    } else {
+      // If no initial ID, then send OTP from this screen
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _sendOTP();
+      });
+    }
   }
 
   @override
@@ -52,7 +69,7 @@ class _EnterOtpState extends State<EnterOtp> {
   }
 
   // Function to show a custom message box
-  void _showMessageBox(String title, String message) {
+  void _showMessageBox(String title, String message, {VoidCallback? onOk}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -75,6 +92,7 @@ class _EnterOtpState extends State<EnterOtp> {
               ),
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
+                onOk?.call(); // Call optional callback
               },
             ),
           ],
@@ -84,7 +102,7 @@ class _EnterOtpState extends State<EnterOtp> {
   }
 
   void _sendOTP() async {
-    if (_isSendingOtp) return; // Prevent multiple calls
+    if (_isSendingOtp) return; // Prevent multiple calls while one is in progress
     setState(() {
       _isSendingOtp = true;
       _isLoading = true; // Show loading while sending OTP
@@ -96,6 +114,8 @@ class _EnterOtpState extends State<EnterOtp> {
       await _auth.verifyPhoneNumber(
         phoneNumber: widget.phoneNumber,
         timeout: const Duration(seconds: 60), // Increased timeout for better reliability
+        // Re-use resendToken if available for explicit resend, otherwise null
+        forceResendingToken: _resendToken,
         verificationCompleted: (PhoneAuthCredential credential) async {
           // Auto-retrieval on Android
           setState(() {
@@ -131,6 +151,7 @@ class _EnterOtpState extends State<EnterOtp> {
         codeSent: (String verificationId, int? resendToken) {
           setState(() {
             _verificationId = verificationId;
+            _resendToken = resendToken; // Store the new resend token
             _isSendingOtp = false;
             _isLoading = false;
           });
@@ -140,6 +161,7 @@ class _EnterOtpState extends State<EnterOtp> {
         codeAutoRetrievalTimeout: (String verificationId) {
           setState(() {
             _verificationId = verificationId;
+            // No resend token typically provided here, if it auto-times out
             _isSendingOtp = false;
             _isLoading = false;
           });
@@ -199,7 +221,9 @@ class _EnterOtpState extends State<EnterOtp> {
 
   void _goToNext() {
     // Ensure you have defined these routes or replace with direct navigation
-    Navigator.pushReplacementNamed(context, InitScreen.routeName);
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, InitScreen.routeName);
+    }
   }
 
   @override
@@ -269,7 +293,13 @@ class _EnterOtpState extends State<EnterOtp> {
                                   _otpControllers[i].text = pasteData[i];
                                 }
                                 // Move focus to the last input after pasting
-                                _focusNodes[5].requestFocus();
+                                if (_focusNodes.isNotEmpty) {
+                                  _focusNodes[5].requestFocus();
+                                }
+                                // Automatically attempt verification after pasting
+                                if (_otpControllers.every((c) => c.text.isNotEmpty)) {
+                                  _verifyOTP();
+                                }
                               });
                             } else if (pasteData != null && pasteData.isNotEmpty) {
                               // Only show message if something was pasted but it's invalid OTP
@@ -278,6 +308,10 @@ class _EnterOtpState extends State<EnterOtp> {
                               setState(() {
                                 for (var controller in _otpControllers) {
                                   controller.clear();
+                                }
+                                // Reset focus to the first field after clearing
+                                if (_focusNodes.isNotEmpty) {
+                                  _focusNodes[0].requestFocus();
                                 }
                               });
                             }
@@ -323,7 +357,7 @@ class _EnterOtpState extends State<EnterOtp> {
                                   if (index < _focusNodes.length - 1) {
                                     _focusNodes[index + 1].requestFocus();
                                   } else {
-                                    // If it's the last field, unfocus and verify
+                                    // If it's the last field, unfocus
                                     _focusNodes[index].unfocus();
                                     // Automatically attempt verification only if all fields are filled
                                     if (_otpControllers.every((c) => c.text.isNotEmpty)) {
@@ -334,8 +368,7 @@ class _EnterOtpState extends State<EnterOtp> {
                                   // If backspace/delete, move focus to the previous field
                                   if (index > 0) {
                                     _focusNodes[index - 1].requestFocus();
-                                    // Clear the previous field if moving back
-                                    _otpControllers[index - 1].clear();
+                                    // Do not clear previous field, it's already cleared by user input
                                   }
                                 }
                               },
