@@ -7,6 +7,7 @@ import 'package:beauty_bag/favourite/view/favourite_screen.dart';
 import 'package:beauty_bag/login/view/login_screen.dart';
 import 'package:beauty_bag/profile/view/profile_screen.dart';
 import '../cart/view/cart_screen.dart';
+import '../forgot_password/view/forgot_password_screen.dart';
 import '../home/model/product_card_model.dart';
 import '../home/view/home_screen.dart';
 import '../init_screen.dart';
@@ -26,6 +27,6 @@ final Map<String, WidgetBuilder> routes = {
     final product = ModalRoute.of(context)!.settings.arguments as ProductCardModel;
     return ProductDetailScreen(productId: product.id);
   },
-
+  ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
 };
 

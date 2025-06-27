@@ -1,3 +1,4 @@
+import 'package:beauty_bag/forgot_password/view/forgot_password_screen.dart';
 import 'package:beauty_bag/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:beauty_bag/init_screen.dart';
@@ -142,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     children: [
                                        TextButton(
                                          onPressed: () {
-                                          // Handle forgot password
+                                           Navigator.pushReplacementNamed(context, ForgotPasswordScreen.routeName);
                                            },
                                         child: Text(
                                             'Forgot Password',
