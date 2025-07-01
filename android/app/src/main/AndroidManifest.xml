@@ -30,6 +30,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".MyPaymentActivity"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
+        </activity>
+
         <service
             android:name="com.google.firebase.messaging.FirebaseMessagingService"
             android:exported="true"
